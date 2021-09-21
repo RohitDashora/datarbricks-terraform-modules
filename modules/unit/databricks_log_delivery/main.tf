@@ -1,5 +1,5 @@
 provider "databricks" {
- 
+
 }
 module "databricks_mws_credentials" {
   source           = "../../base/databricks_mws_credentials"
