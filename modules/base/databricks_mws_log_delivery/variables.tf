@@ -17,7 +17,6 @@ variable "storage_configuration_id" {
   description = "The ID for a Databricks storage configuration that represents the S3 bucket with bucket policy as described in the main billable usage documentation page."
 }
 variable "workspace_ids_filter" {
-  value       = ""
   description = "(Optional) By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the E2 version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces."
 }
 variable "delivery_path_prefix" {
