@@ -1,3 +1,13 @@
+variable "create_s3_bucket" {
+  type        = bool
+  description = "(required) flag to set if s3 bucket needs to be created"
+}
+
+variable "create_iam_role" {
+  type        = bool
+  description = "(required) flag to set if the iam role needs to be created"
+}
+
 variable "account_id" {
   description = "Account Id that could be found in the bottom left corner of Accounts Console."
 }
@@ -9,14 +19,12 @@ variable "role_arn" {
 }
 
 variable "bucket_name" {
-  description = "name of AWS S3 bucket for logs"
+  default     = ""
+  description = "name of AWS S3 bucket for log,  create_s3_bucket variable will help you set the flag on wether to create the bucet or not "
 }
 variable "storage_configuration_name" {
   description = "name under which this storage configuration is stored"
 }
-
-
-
 
 variable "config_name" {
   description = "The optional human-readable name of the log delivery configuration. Defaults to empty."

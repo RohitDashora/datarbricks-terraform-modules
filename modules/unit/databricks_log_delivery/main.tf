@@ -1,6 +1,4 @@
-provider "databricks" {
 
-}
 module "databricks_mws_credentials" {
   source           = "../../base/databricks_mws_credentials"
   account_id       = var.account_id
@@ -31,3 +29,4 @@ module "databricks_mws_log_delivery" {
   delivery_path_prefix     = var.delivery_path_prefix
   delivery_start_time      = var.delivery_start_time
 }
+
