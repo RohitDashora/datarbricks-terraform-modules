@@ -9,7 +9,7 @@ output "mws_credential_creation_time" {
   description = "(Integer) time of credentials registration"
 }
 output "mws_credential_credentials_id" {
-  value       = module.databricks_mws_credentials.credentials_id
+  value       = module.databricks_mws_credentials.id
   description = "(String) identifier of credentials"
 }
 
@@ -19,7 +19,7 @@ output "mws_storage_configuration_id" {
   description = "Canonical unique identifier for the mws storage configurations."
 }
 output "storage_configuration_id" {
-  value       = module.databricks_storage_configuration.storage_configuration_id
+  value       = module.databricks_storage_configuration.id
   description = "(String) id of storage config to be used for"
 }
 
@@ -28,3 +28,4 @@ output "log_delivery_config_id" {
   value       = module.databricks_mws_log_delivery.config_id
   description = "- Databricks log delivery configuration ID."
 }
+

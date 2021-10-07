@@ -11,7 +11,7 @@ variable "acl" {
 
 
 variable "tags" {
-  type = map
+  type = map(any)
   default = {
     comment = " managed by terraform "
   }

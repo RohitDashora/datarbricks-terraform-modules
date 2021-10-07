@@ -1,24 +1,29 @@
 
+module "aws_s3_bucket" {
+  source        = "../../provider-aws/aws_s3_bucket"
+  bucket        = var.bucket_name
+  bucket_prefix = ""
+  force_destroy = true
+  versioning    = false
+
+}
 module "databricks_mws_credentials" {
-  source           = "../../base/databricks_mws_credentials"
-  account_id       = var.account_id
-  credentials_name = var.credentials_name
-  role_arn         = var.role_arn
+  source                = "../../provider-databricks/databricks_mws_credentials"
+  account_id            = var.account_id
+  credentials_name      = var.credentials_name
+  role_arn              = var.role_arn
+  databricks_account_id = "123"
 }
 
 module "databricks_storage_configuration" {
-  source                     = "../../base/databricks_mws_storage_configurations"
+  source                     = "../../provider-databricks/databricks_mws_storage_configurations"
   account_id                 = var.account_id
   storage_configuration_name = var.storage_configuration_name
-  bucket_name                = var.bucket_name
+  bucket_name                = module.aws_s3_bucket.id
 }
 
 module "databricks_mws_log_delivery" {
-  depends_on = [
-    module.databricks_storage_configuration,
-    module.databricks_mws_credentials
-  ]
-  source                   = "../../base/databricks_mws_log_delivery/"
+  source                   = "../../provider-databricks/databricks_mws_log_delivery/"
   account_id               = var.account_id
   config_name              = var.config_name
   log_type                 = var.log_type
