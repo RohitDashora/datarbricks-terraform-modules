@@ -1,5 +1,5 @@
 
-// this module is ONLY for creatign s3 bucket compliant for Databricks root bucket or log delivery bucket, 
+// this module is ONLY for creating s3 bucket compliant for Databricks root bucket or log delivery bucket, 
 //if you have your enterprise s3 module please use that with specifications in the databricks documentation 
 resource "aws_s3_bucket" "s3_bucket" {
   bucket        = var.bucket
