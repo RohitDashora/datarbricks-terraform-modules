@@ -1,4 +1,4 @@
-resource "databricks_mws_workspaces" "this" {
+resource "databricks_mws_workspaces" "mws_workspace" {
   account_id                               = var.account_id
   managed_services_customer_managed_key_id = var.managed_services_customer_managed_key_id
   deployment_name                          = var.deployment_name
