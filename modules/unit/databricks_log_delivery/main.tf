@@ -5,6 +5,7 @@ module "aws_s3_bucket" {
   bucket_prefix = ""
   force_destroy = true
   versioning    = false
+  count = var.create_s3_bucket == True ? 1 :0
 
 }
 module "databricks_mws_credentials" {
@@ -19,7 +20,8 @@ module "databricks_storage_configuration" {
   source                     = "../../provider-databricks/databricks_mws_storage_configurations"
   account_id                 = var.account_id
   storage_configuration_name = var.storage_configuration_name
-  bucket_name                = module.aws_s3_bucket.id
+  bucket_name                = var.bucket_name
+  depends_on = [ module.aws_s3_bucket ]
 }
 
 module "databricks_mws_log_delivery" {
