@@ -2,7 +2,7 @@ provider "databricks" {
 
 }
 
-module "audit_log-delivery" {
+module "usage_log-delivery" {
   source = "../../../modules/unit/databricks_log_delivry"
 
 }

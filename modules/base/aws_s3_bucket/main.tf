@@ -15,8 +15,8 @@ resource "aws_s3_bucket" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
-  bucket              = aws_s3_bucket.this.id
-  ignore_public_acls  = true
+  bucket             = aws_s3_bucket.this.id
+  ignore_public_acls = true
 }
 
 data "aws_iam_policy_document" "this" {
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "this" {
     "s3:DeleteObject"]
     resources = [
       "${aws_s3_bucket.this.arn}/*",
-      aws_s3_bucket.this.arn]
+    aws_s3_bucket.this.arn]
     principals {
       identifiers = ["arn:aws:iam::${var.databricks_account_id}:root"]
       type        = "AWS"

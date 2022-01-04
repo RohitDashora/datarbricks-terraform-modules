@@ -21,6 +21,7 @@ variable "config_name" {
   description = "The optional human-readable name of the log delivery configuration. Defaults to empty."
 }
 variable "log_type" {
+  value       = "BILLABLE_USAGE"
   description = "The type of log delivery. BILLABLE_USAGE and AUDIT_LOGS are supported."
 }
 
@@ -29,13 +30,9 @@ variable "workspace_ids_filter" {
   description = "(Optional) By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the E2 version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces."
 }
 variable "delivery_path_prefix" {
-  description = "(Required) Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character."
+  description = "(Optional) Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character."
 }
 variable "delivery_start_time" {
   default     = "2019-03"
   description = "(Optional) The optional start month and year for delivery, specified in YYYY-MM format. Defaults to current year and month. Usage is not available before 2019-03."
-}
-variable "create_s3_bucket" {
-  default     = flase
-  description = "(Required) To let the system knwo if a new s3 bucket needs to be created for log delivery"
 }
