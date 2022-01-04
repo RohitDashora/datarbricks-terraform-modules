@@ -2,6 +2,9 @@ provider "aws" {
   region = var.region
 
 }
+provider "databricks" {
+
+}
 module "aws_s3_bucket" {
   source                = "../../provider-aws/aws_s3_bucket"
   bucket                = var.bucket_name
