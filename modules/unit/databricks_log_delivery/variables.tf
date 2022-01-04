@@ -1,4 +1,8 @@
 
+variable "region" {
+  type        = string
+  description = "(required) Aws Region where you want to deploy"
+}
 variable "account_id" {
   description = "Account Id that could be found in the bottom left corner of Accounts Console."
 }
@@ -36,6 +40,6 @@ variable "delivery_start_time" {
   description = "(Optional) The optional start month and year for delivery, specified in YYYY-MM format. Defaults to current year and month. Usage is not available before 2019-03."
 }
 variable "create_s3_bucket" {
-  default     = flase
+  default     = false
   description = "(Required) To let the system knwo if a new s3 bucket needs to be created for log delivery"
 }

@@ -1,19 +1,22 @@
+provider "aws" {
+  region = var.region
 
+}
 module "aws_s3_bucket" {
-  source        = "../../provider-aws/aws_s3_bucket"
-  bucket        = var.bucket_name
-  bucket_prefix = ""
-  force_destroy = true
-  versioning    = false
-  count         = var.create_s3_bucket == True ? 1 : 0
+  source                = "../../provider-aws/aws_s3_bucket"
+  bucket                = var.bucket_name
+  bucket_prefix         = ""
+  force_destroy         = true
+  versioning            = false
+  count                 = var.create_s3_bucket == true ? 1 : 0
+  databricks_account_id = "414351767826"
 
 }
 module "databricks_mws_credentials" {
-  source                = "../../provider-databricks/databricks_mws_credentials"
-  account_id            = var.account_id
-  credentials_name      = var.credentials_name
-  role_arn              = var.role_arn
-  databricks_account_id = "123"
+  source           = "../../provider-databricks/databricks_mws_credentials"
+  account_id       = var.account_id
+  credentials_name = var.credentials_name
+  role_arn         = var.role_arn
 }
 
 module "databricks_storage_configuration" {
