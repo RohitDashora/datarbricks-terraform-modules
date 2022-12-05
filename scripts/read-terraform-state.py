@@ -1,24 +1,22 @@
 import json
-import pydot
+import networkx as nx
 
 # specify the path to the Terraform state file
-terraform_state_file_path = "path/to/terraform.tfstate"
+state_file_path = "path/to/terraform.tfstate"
 
-# read the state file as JSON
-with open(terraform_state_file_path) as f:
-    state_file_data = json.load(f)
+# read the Terraform state file
+with open(state_file_path, "r") as f:
+    state = json.load(f)
 
-# extract the graph data from the state file
-graph_data = state_file_data["modules"][0]["outputs"]["graph"]["value"]
+# create a directed graph using NetworkX
+graph = nx.DiGraph()
 
-# create a graph using the extracted data
-graph = pydot.Dot(graph_type="digraph")
+# iterate over the resources in the Terraform state and add them to the graph
+for resource_type, resources in state["resources"].items():
+    for resource in resources:
+        graph.add_node(resource["name"])
+        for dependency in resource["depends_on"]:
+            graph.add_edge(dependency, resource["name"])
 
-# add nodes and edges to the graph
-for node in graph_data["nodes"]:
-    graph.add_node(pydot.Node(node))
-for edge in graph_data["edges"]:
-    graph.add_edge(pydot.Edge(edge[0], edge[1]))
-
-# print the graph
-print(graph.to_string())
+# use NetworkX to render the graph
+nx.draw(graph, with_labels=True)
