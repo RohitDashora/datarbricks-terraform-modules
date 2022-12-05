@@ -1,9 +1,9 @@
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib.pyplot import figure
 
-# specify the path to the Terraform state file
-state_file_path = "path/to/terraform.tfstate"
 
 def read_and_render_terraform_state(state_file_path: str):
     try:
@@ -15,19 +15,48 @@ def read_and_render_terraform_state(state_file_path: str):
         if not isinstance(state, dict):
             raise ValueError("The Terraform state is not a valid JSON file.")
 
+       # cretae empty list
+        dependencies = []
+
+        # iterate over the modules in the Terraform state and add them to the list
+        for module in state["modules"]:
+            for resource_type, resources in module["resources"].items():
+                dependencies.append(
+                    (module["path"][0], resource_type, 'creates'))
+                if ('depends_on' in resources):
+                    for dependency in resources['depends_on']:
+                        dependencies.append(
+                            (dependency, resource_type, 'depends_on'))
+
+        df = pd.DataFrame(dependencies, columns=[
+                          'node1', 'node2', 'dependency_type'])
+
         # create a directed graph using NetworkX
         graph = nx.DiGraph()
 
-        # iterate over the modules in the Terraform state and add them to the graph
-        for module in state["modules"]:
-            graph.add_node(module["path"][0])
-            for resource in module["resources"].values():
-                graph.add_node(resource["name"])
-                graph.add_edge(module["path"][0], resource["name"])
+        # iterate through pandas dataframe to get nodes
+        for _, row in df.iterrows():
+            graph.add_node(row["node1"])
+            graph.add_node(row["node2"])
+            graph.add_edge(row["node1"], row["node2"],
+                           label=row["dependency_type"])
+
+        edge_labels = nx.get_edge_attributes(graph, 'label')
 
         # use NetworkX to render and display the graph
-        nx.draw(graph, with_labels=True)
+        nx.draw(graph, pos=nx.shell_layout(graph),
+                arrowstyle='->', with_labels=True,
+                node_size=1500, node_shape="s",
+                 font_size=12 )
+        nx.draw_networkx_edge_labels(
+            graph, edge_labels=edge_labels, font_size=8, pos=nx.shell_layout(graph))
         plt.show()
+
     except Exception as e:
         # handle any errors that may occur
         print("Error:", e)
+
+
+# specify the path to the Terraform state file
+state_file_path = "scripts/example.tfstate"
+read_and_render_terraform_state(state_file_path)
