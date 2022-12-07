@@ -1,0 +1,9 @@
+databricks_resource_group_name = "databricks-rg"
+databricks_resource_group_location = "eastus"
+databricks_storage_account_name = "databricksstorageaccount"
+databricks_virtual_network_name = "databricks-vnet"
+databricks_virtual_network_address_space = ["10.0.0.0/16"]
+databricks_subnet_name = "databricks-subnet"
+databricks_subnet_address_prefix = "10.0.1.0/24"
+databricks_workspace_name = "databricks-workspace"
+databricks_workspace_sku = "standard"
