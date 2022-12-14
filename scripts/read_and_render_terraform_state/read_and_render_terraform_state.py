@@ -119,9 +119,11 @@ function with the path to the Terraform state file.
 """
 if __name__ == "__main__":
     # parse the command line arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument("state_file_path", help="The path to the Terraform state file to rander")
-    args = parser.parse_args()
-    state_file_path=args.state_file_path
+    #parser = argparse.ArgumentParser()
+    #parser.add_argument("state_file_path", help="The path to the Terraform state file to rander")
+    #args = parser.parse_args()
+    #state_file_path=args.state_file_path
+    state_file_path='../../scripts/example.tfstate'
+    read_and_render_terraform_state(state_file_path=state_file_path)
 
 
